@@ -236,6 +236,7 @@ func main() {
 	block6 := block.New("f")
 	block7 := block.New("g")
 
+	block1_ := block.New("g")
 
 	graph := New()
 	err := graph.AddNode(block1)
@@ -249,6 +250,8 @@ func main() {
 
 	_ = graph.AddNode(block6)
 	_ = graph.AddNode(block7)
+
+	_ = graph.AddNode(block1_)
 
 
 	_ = graph.AddEdge(block1, block2)
