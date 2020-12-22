@@ -1,7 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="9416f71b-c58b-4ded-9cf7-80848c4ad8f5" name="默认更改列表" comment="" />
+    <list default="true" id="9416f71b-c58b-4ded-9cf7-80848c4ad8f5" name="默认更改列表" comment="">
+      <change afterPath="$PROJECT_DIR$/graph_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graph.go" beforeDir="false" afterPath="$PROJECT_DIR$/graph.go" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,16 +41,23 @@
       </list>
     </option>
   </component>
-  <component name="GOROOT" path="/usr/local/Cellar/go/1.13.1/libexec" />
+  <component name="GOROOT" path="$PROJECT_DIR$/../../../../InstallDir/Go" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="GoLibraries">
     <option name="indexEntireGoPath" value="false" />
   </component>
   <component name="ProjectId" id="1lv4domKBzgFEK0QxGZFZRltZm4" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="DefaultGoTemplateProperty" value="Go File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -32,7 +65,7 @@
     <property name="last_opened_file_path" value="$USER_HOME$" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
-  <component name="RunManager" selected="Go Build.go build graph.go">
+  <component name="RunManager" selected="Go Build.go build Graph">
     <configuration name="go build Graph" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="Graph" />
       <working_directory value="$PROJECT_DIR$" />
@@ -51,16 +84,42 @@
       <directory value="$PROJECT_DIR$" />
       <method v="2" />
     </configuration>
+    <configuration name="TestGraph_AddNode in Graph" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="Graph" />
+      <working_directory value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="Graph" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <pattern value="^\QTestGraph_AddNode\E$" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Go Build.go build graph.go" />
         <item itemvalue="Go Build.go build Graph" />
+        <item itemvalue="Go Build.go build graph.go" />
+        <item itemvalue="Go Test.TestGraph_AddNode in Graph" />
       </list>
     </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
@@ -71,29 +130,42 @@
     </environment>
   </component>
   <component name="WindowStateProjectService">
-    <state width="1398" height="245" key="GridCell.Tab.0.bottom" timestamp="1608560868362">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state x="1072" y="630" key="#GOROOT" timestamp="1608595974465">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="1072" y="630" key="#GOROOT/0.0.2560.1400@0.0.2560.1400" timestamp="1608595974465" />
+    <state x="960" y="434" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1608597748834">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="960" y="434" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1608597748834" />
+    <state width="1258" height="394" key="GridCell.Tab.0.bottom" timestamp="1608606385384">
+      <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state width="1398" height="245" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1608560868362" />
+    <state width="1258" height="394" key="GridCell.Tab.0.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1608606385384" />
     <state width="1398" height="228" key="GridCell.Tab.0.bottom/0.25.1440.875@0.25.1440.875" timestamp="1608477447155" />
-    <state width="1398" height="245" key="GridCell.Tab.0.center" timestamp="1608560868360">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state width="1258" height="394" key="GridCell.Tab.0.center" timestamp="1608606385384">
+      <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state width="1398" height="245" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1608560868360" />
+    <state width="1258" height="394" key="GridCell.Tab.0.center/0.0.2560.1400@0.0.2560.1400" timestamp="1608606385384" />
     <state width="1398" height="228" key="GridCell.Tab.0.center/0.25.1440.875@0.25.1440.875" timestamp="1608477447155" />
-    <state width="1398" height="245" key="GridCell.Tab.0.left" timestamp="1608560868357">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state width="1258" height="394" key="GridCell.Tab.0.left" timestamp="1608606385384">
+      <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state width="1398" height="245" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1608560868357" />
+    <state width="1258" height="394" key="GridCell.Tab.0.left/0.0.2560.1400@0.0.2560.1400" timestamp="1608606385384" />
     <state width="1398" height="228" key="GridCell.Tab.0.left/0.25.1440.875@0.25.1440.875" timestamp="1608477447154" />
-    <state width="1398" height="245" key="GridCell.Tab.0.right" timestamp="1608560868361">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state width="1258" height="394" key="GridCell.Tab.0.right" timestamp="1608606385384">
+      <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state width="1398" height="245" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1608560868361" />
+    <state width="1258" height="394" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1608606385384" />
     <state width="1398" height="228" key="GridCell.Tab.0.right/0.25.1440.875@0.25.1440.875" timestamp="1608477447155" />
-    <state x="385" y="214" width="670" height="676" key="search.everywhere.popup" timestamp="1608470012501">
-      <screen x="0" y="25" width="1440" height="875" />
+    <state x="684" y="302" width="1192" height="1082" key="search.everywhere.popup" timestamp="1608601653203">
+      <screen x="0" y="0" width="2560" height="1400" />
     </state>
+    <state x="684" y="302" width="1192" height="1082" key="search.everywhere.popup/0.0.2560.1400@0.0.2560.1400" timestamp="1608601653203" />
     <state x="385" y="214" width="670" height="676" key="search.everywhere.popup/0.25.1440.875@0.25.1440.875" timestamp="1608470012501" />
   </component>
 </project>

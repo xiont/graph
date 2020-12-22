@@ -7,16 +7,9 @@ import (
 	"github.com/emirpasic/gods/sets/hashset"
 	"github.com/emirpasic/gods/sets/linkedhashset"
 	"github.com/emirpasic/gods/stacks/arraystack"
+	"sort"
 )
 
-
-
-type IGraph interface {
-	GetNodeList() []interface{}
-	GetRoot() interface{}
-	AddNode(interface{}) error
-	HaveNode(interface{}) (error,bool)
-}
 
 type Graph struct {
 	nodeList   []interface{}
@@ -24,6 +17,7 @@ type Graph struct {
 	nodeMap    map[interface{}][]interface{}
 	indegreeMap map[interface{}][]interface{}
 	root       interface{}
+	usefulSet *hashset.Set
 }
 
 func New() *Graph{
@@ -32,6 +26,7 @@ func New() *Graph{
 		lookup:     make(map[interface{}]int),
 		nodeMap:    make(map[interface{}][]interface{}),
 		indegreeMap: make(map[interface{}][]interface{}),
+		usefulSet: hashset.New(),
 	}
 }
 
@@ -40,10 +35,7 @@ func (G *Graph)HaveNode(node interface{}) (error,bool){
 	if !ok{
 		return errors.New(fmt.Sprintf("lookup cannot find such %v",node) ),ok
 	}
-
 	return nil,ok
-
-
 }
 
 func (G *Graph)AddNode(node interface{}) error{
@@ -51,7 +43,6 @@ func (G *Graph)AddNode(node interface{}) error{
 	if ok{
 		return errors.New(fmt.Sprintf("Graph has such a node %v",node))
 	}
-
 	G.nodeList = append(G.nodeList,node)
 	G.lookup[node] = len(G.nodeList) -1
 	return nil
@@ -68,8 +59,8 @@ func (G *Graph)AddEdge(node1 interface{},node2 interface{}) error{
 		//panic(errors.New(fmt.Sprintf("node %v is same with node %v",node1,node2) ))
 		return  errors.New(fmt.Sprintf("node %v is same with node %v",node1,node2) )
 	}
-
 	G.nodeMap[node1] = append(G.nodeMap[node1], node2)
+	G.indegreeMap[node2] = append(G.indegreeMap[node2], node1)
 	return nil
 }
 
@@ -81,6 +72,7 @@ func (G *Graph)SetRoot(node interface{}) error{
 		return err
 	}
 	G.root = node
+	G.indegreeMap[node] = []interface{}{}
 	return nil
 }
 
@@ -130,21 +122,29 @@ func (G *Graph)SubGraph(node interface{}){
 		}
 	}
 
+
 	for _,node := range G.nodeList{
 		if !L.Contains(node){
 			delete(G.lookup,node)
+			delete(G.nodeMap,node)
 		}
 	}
+
+
+
 	G.nodeList = L.Values()
+
 	for key,node := range G.nodeList{
 		G.lookup[node] = key
 	}
+
+	newIndegreeMap := make(map[interface{}][]interface{})
 	for key,nodes := range G.nodeMap{
 		for _,node := range nodes {
-			G.indegreeMap[node] = append(G.indegreeMap[node], key)
+			newIndegreeMap[node] = append(newIndegreeMap[node], key)
 		}
 	}
-	G.indegreeMap[node] = []interface{}{}
+	G.indegreeMap = newIndegreeMap
 
 	//fmt.Printf("%v",G.indegreeMap)
 	G.root = node
@@ -160,35 +160,67 @@ func contain(v []interface{},i interface{}) int  {
 }
 
 
-func (G *Graph)LogicSort( cmp func(interface{},interface{}) int) []interface{}{
+func (G *Graph)makeUsefulItem(set []interface{},visited map[interface{}]bool){
+	if len(set) > 0{
+		for _,node := range set{
+			G.usefulSet.Add(node)
+			if _,ok := visited[node];!ok{
+				G.makeUsefulItem(G.Child(node),visited)
+				visited[node] = true
+			}
+		}
+	}
+}
+
+func (G *Graph)MakeUsefulItem(){
+	G.usefulSet.Clear()
+	G.usefulSet.Add(G.root)
+	visited := make(map[interface{}]bool)
+	G.makeUsefulItem(G.Child(G.root),visited)
+}
+
+func (G *Graph)LogicSort( cmp func(interface{},interface{}) bool) []interface{}{
+	G.MakeUsefulItem()
+
 	L := linkedhashset.New() // result set
 	S := linkedhashset.New() // node set that in-degree = 0
 	S.Add(G.root)
 
-
 	for S.Size()>0 {
+		var L2 []interface{}
 		node := S.Values()[0]
 		L.Add(node)
 		S.Remove(node)
 
 		// add items no in-degree to S except in L
-		//遍历map中的key
 		for key,value := range G.indegreeMap{
-			if !L.Contains(key){
+			if !L.Contains(key) && G.usefulSet.Contains(key){
 				co := contain(value,node)
 				if co != -1{
 					G.indegreeMap[key] = append(G.indegreeMap[key][0:co],G.indegreeMap[key][co+1:]... )
+
 				}
+
+				i_ := 0
+				for id,node := range G.indegreeMap[key]{
+					if !G.usefulSet.Contains(node){
+						G.indegreeMap[key] = append(G.indegreeMap[key][0:id-i_],G.indegreeMap[key][id-i_+1:]... )
+						i_++
+					}
+				}
+
 				if len(G.indegreeMap[key]) == 0{
-					S.Add(key)
+					L2 = append(L2, key)
 				}
 			}
 		}
 
+		sort.Slice(L2, func(i, j int) bool {
+			return cmp(L2[i],L2[j])
+		})
 
+		S.Add(L2...)
 	}
-
-	fmt.Printf("%v",L.Values())
 
 	return L.Values()
 }
@@ -200,6 +232,11 @@ func main() {
 	block3 := block.New("c")
 	block4 := block.New("d")
 	block5 := block.New("e")
+
+	block6 := block.New("f")
+	block7 := block.New("g")
+
+
 	graph := New()
 	err := graph.AddNode(block1)
 	if err != nil{
@@ -210,6 +247,9 @@ func main() {
 	_ = graph.AddNode(block4)
 	_ = graph.AddNode(block5)
 
+	_ = graph.AddNode(block6)
+	_ = graph.AddNode(block7)
+
 
 	_ = graph.AddEdge(block1, block2)
 	_ = graph.AddEdge(block1, block3)
@@ -217,17 +257,24 @@ func main() {
 	_ = graph.AddEdge(block3, block4)
 	_ = graph.AddEdge(block4, block5)
 
-	// graph.edgeMatrix[0][0] = false
+	_ = graph.AddEdge(block1,block6)
+	_ = graph.AddEdge(block6,block3)
+	_ = graph.AddEdge(block4,block7)
 
-	// println(graph.edgeMatrix[0][0])
-	graph.SubGraph(block1)
-	graph.LogicSort(func(i interface{}, i2 interface{}) int {
-		return 1
+	_ = graph.AddEdge(block6,block7)
+
+	//graph.SubGraph(block2)
+	graph.SetRoot(block1)
+
+	L:=graph.LogicSort(func(i interface{}, i2 interface{}) bool {
+		// favoring the smaller one
+		return  i.(*block.Block).GetName() < i2.(*block.Block).GetName()
 	})
-	//graph.LogicSort( func(block1 interface{},block2 interface{}) int{ return 1} )
 
-	//fmt.Printf("%v,%v,%v\n",graph.nodeList,graph.lookup[graph.nodeList[1]],graph.edgeMatrix)
-	//fmt.Printf("%v\n",graph.edgeMatrix)
-	//println(graph.nodeList[0].(*block.Block).GetName())
-	//fmt.Printf("%v\n",graph.Child(block1)[1].(*block.Block))
+	fmt.Printf("usefulSet%v\n",graph.usefulSet)
+
+	for _,v := range L{
+		fmt.Printf("%v",v)
+	}
+
 }
