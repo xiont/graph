@@ -17,6 +17,7 @@ type Graph struct {
 	nodeMap    map[interface{}][]interface{}
 	indegreeMap map[interface{}][]interface{}
 	root       interface{}
+	noIndegreeNodes *hashset.Set
 	usefulSet *hashset.Set
 }
 
@@ -26,6 +27,7 @@ func New() *Graph{
 		lookup:     make(map[interface{}]int),
 		nodeMap:    make(map[interface{}][]interface{}),
 		indegreeMap: make(map[interface{}][]interface{}),
+		noIndegreeNodes: hashset.New(),
 		usefulSet: hashset.New(),
 	}
 }
@@ -61,6 +63,11 @@ func (G *Graph)AddEdge(node1 interface{},node2 interface{}) error{
 	}
 	G.nodeMap[node1] = append(G.nodeMap[node1], node2)
 	G.indegreeMap[node2] = append(G.indegreeMap[node2], node1)
+
+	G.noIndegreeNodes.Remove(node2)
+	if _,ok := G.indegreeMap[node1];!ok{
+		G.noIndegreeNodes.Add(node1)
+	}
 	return nil
 }
 
@@ -73,6 +80,9 @@ func (G *Graph)SetRoot(node interface{}) error{
 	}
 	G.root = node
 	G.indegreeMap[node] = []interface{}{}
+
+	G.noIndegreeNodes.Clear()
+	G.noIndegreeNodes.Add(node)
 	return nil
 }
 
@@ -100,6 +110,9 @@ func (G *Graph)addUsefulId(children []interface{}){
 }
 
 
+/*
+	its a low performance method
+ */
 func (G *Graph)SubGraph(node interface{}){
 	// also trim useless blocks and edges
 	err,ok := G.HaveNode(node)
@@ -148,6 +161,9 @@ func (G *Graph)SubGraph(node interface{}){
 
 	//fmt.Printf("%v",G.indegreeMap)
 	G.root = node
+
+	G.noIndegreeNodes.Clear()
+	G.noIndegreeNodes.Add(node)
 }
 
 func contain(v []interface{},i interface{}) int  {
@@ -267,14 +283,16 @@ func main() {
 	_ = graph.AddEdge(block6,block7)
 
 	//graph.SubGraph(block2)
-	graph.SetRoot(block1)
+	graph.SetRoot(block3)
 
 	L:=graph.LogicSort(func(i interface{}, i2 interface{}) bool {
 		// favoring the smaller one
 		return  i.(*block.Block).GetName() < i2.(*block.Block).GetName()
 	})
 
-	fmt.Printf("usefulSet%v\n",graph.usefulSet)
+	fmt.Printf("usefulSet %v\n",graph.usefulSet)
+
+	fmt.Printf("noindegreenodes %v\n",graph.noIndegreeNodes)
 
 	for _,v := range L{
 		fmt.Printf("%v",v)
