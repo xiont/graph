@@ -1,7 +1,6 @@
-package main
+package graph
 
 import (
-	"github.com/xiont/graph/block"
 	"errors"
 	"fmt"
 	"github.com/emirpasic/gods/sets/hashset"
@@ -242,60 +241,60 @@ func (G *Graph)LogicSort( cmp func(interface{},interface{}) bool) []interface{}{
 }
 
 
-func main() {
-	block1 := block.New("a")
-	block2 := block.New("b")
-	block3 := block.New("c")
-	block4 := block.New("d")
-	block5 := block.New("e")
-
-	block6 := block.New("f")
-	block7 := block.New("g")
-
-	block1_ := block.New("g")
-
-	graph := New()
-	err := graph.AddNode(block1)
-	if err != nil{
-		println(err.Error())
-	}
-	_ = graph.AddNode(block2)
-	_ = graph.AddNode(block3)
-	_ = graph.AddNode(block4)
-	_ = graph.AddNode(block5)
-
-	_ = graph.AddNode(block6)
-	_ = graph.AddNode(block7)
-
-	_ = graph.AddNode(block1_)
-
-
-	_ = graph.AddEdge(block1, block2)
-	_ = graph.AddEdge(block1, block3)
-	_ = graph.AddEdge(block2, block3)
-	_ = graph.AddEdge(block3, block4)
-	_ = graph.AddEdge(block4, block5)
-
-	_ = graph.AddEdge(block1,block6)
-	_ = graph.AddEdge(block6,block3)
-	_ = graph.AddEdge(block4,block7)
-
-	_ = graph.AddEdge(block6,block7)
-
-	//graph.SubGraph(block2)
-	graph.SetRoot(block3)
-
-	L:=graph.LogicSort(func(i interface{}, i2 interface{}) bool {
-		// favoring the smaller one
-		return  i.(*block.Block).GetName() < i2.(*block.Block).GetName()
-	})
-
-	fmt.Printf("usefulSet %v\n",graph.usefulSet)
-
-	fmt.Printf("noindegreenodes %v\n",graph.noIndegreeNodes)
-
-	for _,v := range L{
-		fmt.Printf("%v",v)
-	}
-
-}
+//func main() {
+//	block1 := block.New("a")
+//	block2 := block.New("b")
+//	block3 := block.New("c")
+//	block4 := block.New("d")
+//	block5 := block.New("e")
+//
+//	block6 := block.New("f")
+//	block7 := block.New("g")
+//
+//	block1_ := block.New("g")
+//
+//	graph := New()
+//	err := graph.AddNode(block1)
+//	if err != nil{
+//		println(err.Error())
+//	}
+//	_ = graph.AddNode(block2)
+//	_ = graph.AddNode(block3)
+//	_ = graph.AddNode(block4)
+//	_ = graph.AddNode(block5)
+//
+//	_ = graph.AddNode(block6)
+//	_ = graph.AddNode(block7)
+//
+//	_ = graph.AddNode(block1_)
+//
+//
+//	_ = graph.AddEdge(block1, block2)
+//	_ = graph.AddEdge(block1, block3)
+//	_ = graph.AddEdge(block2, block3)
+//	_ = graph.AddEdge(block3, block4)
+//	_ = graph.AddEdge(block4, block5)
+//
+//	_ = graph.AddEdge(block1,block6)
+//	_ = graph.AddEdge(block6,block3)
+//	_ = graph.AddEdge(block4,block7)
+//
+//	_ = graph.AddEdge(block6,block7)
+//
+//	//graph.SubGraph(block2)
+//	graph.SetRoot(block3)
+//
+//	L:=graph.LogicSort(func(i interface{}, i2 interface{}) bool {
+//		// favoring the smaller one
+//		return  i.(*block.Block).GetName() < i2.(*block.Block).GetName()
+//	})
+//
+//	fmt.Printf("usefulSet %v\n",graph.usefulSet)
+//
+//	fmt.Printf("noindegreenodes %v\n",graph.noIndegreeNodes)
+//
+//	for _,v := range L{
+//		fmt.Printf("%v",v)
+//	}
+//
+//}
