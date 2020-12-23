@@ -1,4 +1,4 @@
-module graph
+module github.com/xiont/graph
 
 go 1.13
 

@@ -1,7 +1,7 @@
 package main
 
 import (
-	"Graph/block"
+	"github.com/xiont/graph/block"
 	"fmt"
 	"math/rand"
 	"testing"

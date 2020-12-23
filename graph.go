@@ -1,7 +1,7 @@
 package main
 
 import (
-	"graph/block"
+	"github.com/xiont/graph/block"
 	"errors"
 	"fmt"
 	"github.com/emirpasic/gods/sets/hashset"
