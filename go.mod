@@ -1,4 +1,4 @@
-module Graph
+module graph
 
 go 1.13
 

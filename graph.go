@@ -1,7 +1,7 @@
 package main
 
 import (
-	"Graph/block"
+	"graph/block"
 	"errors"
 	"fmt"
 	"github.com/emirpasic/gods/sets/hashset"
